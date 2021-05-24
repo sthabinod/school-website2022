@@ -1,0 +1,103 @@
+{% extends 'result/dashboard.html' %}
+
+{% block board %}
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<div style="float:right;margin-top: -700px;" class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div style="margin-top: 70px;" class="col-md-10 grid-margin">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                                <p class="alert alert-danger " id="danger-alert">{{ message }}</p>
+                            {% else %}
+                                <p class="alert alert-success" id="success-alert">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                            <form id="form" action="{% url 'add_result' %}" method="post">
+                            {% csrf_token %}
+                                <input type="hidden" name = "class" id="class" value="{{class_}}"/>
+                                <input type="hidden" name="exam_term" id="exam_term" value="{{exam_term}}"/>
+                                <input type="hidden" name="exam_date" id="exam_date" value="{{exam_date}}"/>
+                                <div class="form-group">
+                                {% if subjects %}
+                                    <select class="form-control"id="subject" name="subject" >
+                                        <option selected="selected" hidden="hidden" >Select subject</option>
+                                        {% for subject in subjects %}
+
+                                        <option name="subject" id="subject" value="{{subject.subject_code}}"> {{subject.subject_code}} </option>
+                                        {% endfor %}
+                                    </select>
+                                {% else %}
+                                    <p class="alert alert-warning">You don't have any subjects in this class!</p>
+                                {% endif %}
+                                </div>
+                                <hr>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">SN</th>
+                                            <th scope="col">Student Name</th>
+                                            <th scope="col">Exam Points</th>
+                                            <th scope="col">Test Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for name in names %}
+                                         <input name="names" id="names" type="hidden"  value="{{name.student_identity}}"/>
+                                        <tr style="background: none;color: #000;">
+                                            <td>
+                                                {{ forloop.counter }}
+                                            </td>
+                                            <td><a style="color:black;text-decoration: none;"  href="#"><p style="font-size: 16px;" class="" >{{name.user.first_name}} {{name.user.last_name}}</p></a></td>
+                                            <td> <input style="height: 40px;" name="exam_score" min="0" max="90" type="number" id="exam_score" class="form-control" placeholder=" "></td>
+                                            <td> <input style="height: 40px;" name="test_score" min="0" max="10"  type="number" id="test_score" class="form-control" placeholder=" "></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <button type="submit" style="width: 30%;float: right;margin-top: 20px;margin-right: 20px;" class="btn btn-success">Proceed </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{#    <script type="text/javascript">#}
+{#        $(document).on('submit','#form',function(e){#}
+{#            e.preventDefault();#}
+{#            alert("No reload")#}
+{##}
+{#            $.ajax({#}
+{#               type:'POST',#}
+{#                url:'add-result',#}
+{#                data:{#}
+{#                   subject:$('#subject').val(),#}
+{#                   names:$('#names').val(),#}
+{#                    test_score:$('#test_score').val(),#}
+{#                    exam_score:$('#exam_score').val(),#}
+{#                    class:$('#class').val(),#}
+{#                    exam_term:$('#exam_term').val(),#}
+{#                    exam_date:$('#exam_date').val(),#}
+{##}
+{#                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),#}
+{#                           success:function (){#}
+{#                     alert("Here")#}
+{#                   },#}
+{#                },#}
+{#                success:function (){#}
+{#                   alert("Working !")#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+
+{% endblock %}

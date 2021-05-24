@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Starting header -->
+<header style="margin-top: 50px;" class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+
+      <!--Message -->
+
+        <h1 class="font-weight-light" data-aos="fade-up">Good luck!</h1>
+        <p class="lead" data-aos="fade-up">"If you focus on results, you will never change.."</p>
+          {% for message in messages %}
+            <div  data-aos="fade-up" id="alert_message" class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+          {% endfor %}
+
+      <!--    Starting form -->
+          <form data-aos="fade-up" style="margin-top: 40px;" class="contain-view" action="{% url 'view_result' %}" method="POST">
+              {% csrf_token %}
+
+           <div class="form-group">
+                <select style="width: 50%;height: 50px;margin-bottom: 15px;border-radius: 2px;padding: 10px;" data-value="Binod" name="exam_term" id="exams">
+                    <option value="" selected="selected" hidden="hidden">Choose exam</option>
+                    {% for exam in exams %}
+                    <option value="{{ exam.exam_term }}">{{ exam.exam_term }}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <input placeholder="Exam year and months" type="date" style="width: 50%;height: 50px;padding: 10px;border: 1px solid #ccc;border-radius: 2px;" name="exam_date" class="">
+            </div>
+
+            <hr>
+
+            <div style="width: 50%;margin-left: 25%;" class="form-group">
+                <input name="sn" type="text" style="height: 50px;" class="form-control"  placeholder="  Enter your symbol number       |        Example: 1802999290DRN">
+                <small class="form-text text-muted">Provide symbol number from your profile.</small>
+            </div>
+
+            <div>
+                <button style="color:white;width: 50%;" type="submit" class="btn btn-primary"><center>Display Now!</center></button>
+            </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</header>
+
+{% block footer %}
+{% endblock %}
+
+{% endblock %}

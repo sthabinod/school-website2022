@@ -1,0 +1,185 @@
+{% extends 'result/dashboard.html' %} {% block board %}
+
+<!-- partial -->
+<div style="float:right;margin-top: -610px;" class="main-panel">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="row">
+                    <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                        <h3 class="font-weight-bold">Welcome {{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                        <h6 class="font-weight-normal mb-0">All systems are running smoothly! You can <span class="text-primary"> <a
+                          href="{% url 'add_result' %}">add results!</a></span></h6>
+                    </div>
+                    <div class="col-12 col-xl-4">
+                        <div class="justify-content-end d-flex">
+                            <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+                                <button class="btn btn-sm btn-light bg-white" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      Today <span id="date"></span>
+                    </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card tale-bg">
+                    <div class="card-people mt-auto">
+                        <img style="margin-top: -30px;" src="{{ request.user.teacheruser.image.url }}" alt="people">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin transparent">
+                <div class="row">
+                    <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div style="background-color: lightgreen;" class="card ">
+                            <div class="card-body">
+                                <p class="mb-4">Total classes</p>
+                                <p class="fs-30 mb-2">{{ classes }}</p>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 stretch-card transparent">
+                        <div style="background-color: #5cb85c;" class="card card-dark-blue">
+                            <div class="card-body">
+                                <p class="mb-4">Total subjects</p>
+                                <p class="fs-30 mb-2">{{ subjects }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                        <div style="background-color: #5cb85c;" class="card card-light-blue">
+                            <div class="card-body">
+                                <p class="mb-4">Number of exams</p>
+                                <p class="fs-30 mb-2">{{ exams }}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 stretch-card transparent">
+                        <div style="background-color: #5cb85c;" class="card card-light-danger">
+                            <div class="card-body">
+                                <p class="mb-4">Number of events</p>
+                                <p class="fs-30 mb-2">{{ events }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title mb-0">Top News</p>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Subtitle</th>
+                                        <th>Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for n in news %}
+                                    <tr>
+                                        <td class="font-weight-bold"> {{ n.title }}</td>
+                                        <td>{{ n.sub_title }}</td>
+                                        <td>{{ n.date }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">No. of students in class</h4>
+
+                        <div>
+                            <canvas id="myChart" width="300" height="200"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script>
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+
+
+            labels: ['First Term', 'Second Term', 'Third Term'],
+            datasets: [{
+                label: 'Classes student',
+                data: [{
+                    {
+                        first_term
+                    }
+                }, {
+                    {
+                        second_term
+                    }
+                }, {
+                    {
+                        third_term
+                    }
+                }],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 4
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    document.getElementById('date').innerHTML = date;
+</script>
+{% endblock %}

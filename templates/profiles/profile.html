@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      <div style="margin-bottom: 100px;"></div>
+ {% for message in messages %}
+     {% if message.tags == 'error' %}
+        <p class="alert alert-danger " id="danger-alert">{{ message }}</p>
+     {% else %}
+         <p class="alert alert-success" id="success-alert">{{ message }}</p>
+     {% endif %}
+ {% endfor %}
+
+      <div style="margin-top: 120px;" class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="#">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Profile</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;"  class="container">
+    <div class="main-body">
+
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+
+            {% if request.user.teacheruser %}
+                            <img src="{{ user.teacheruser.image.url }}" alt="Admin" width="200">
+        {% elif request.user.studentuser %}
+                                            <img src="{{ user.studentuser.image.url }}" alt="Admin" class="rounded-circle" width="150">
+                {% endif %}
+
+
+
+                        <div class="mt-3">
+                            <h4>{{user.first_name}} {{user.last_name}}</h4>
+
+                            <p class="text-muted font-size-sm">{{ user.teacheruser.address }}</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+
+                    {% if user.teacheruser %}
+                          <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fa fa-charging-station icon-inline text-primary"></svg>Status</h6>
+                      <span class="text-secondary">Teacher</span>
+                      {% elif user.studentuser %}
+                          <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-inline text-primary"></svg>Status</h6>
+                    <span class="text-secondary">Student</span>
+                      {% endif %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     {{user.first_name}} {{user.last_name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                     {{user.email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Identification </h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {% if user.studentuser %}
+                            {{ user.studentuser.student_identity }}
+                       {% else %}
+                             {{ user.teacheruser.teacher_identification }}
+                    {% endif %}
+
+
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Mobile</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                       {% if user.studentuser %}
+                            {{ user.studentuser.mobile_number }}
+                       {% else %}
+                             {{ user.teacheruser.mobile_number }}
+                    {% endif %}
+
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Address</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {% if user.studentuser %}
+                            {{ user.studentuser.permanent_address }}
+                       {% else %}
+                             {{ user.teacheruser.permanent_address }}
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock %}

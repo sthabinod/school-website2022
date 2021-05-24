@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+<div class="container-scroller" style="margin-top: 200px; margin-bottom: 100px;">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;background-color: white;" class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+        		   {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                             <p class="alert alert-danger " id="danger-alert">{{ message }}</p>
+                        {% else %}
+                             <p class="alert alert-success" id="success-alert">{{ message }}</p>
+                        {% endif %}
+                   {% endfor %}
+              </div>
+              <h4>Hello! let's get started</h4>
+              <h6 class="font-weight-light">Sign in to continue.</h6>
+			  <form class="pt-3" action="{% url 'login' %}"  method="POST">
+              {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input  type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="mt-3">
+                        <input type="submit" style="color:white;width: 100%;" class="small btn btn-primary px-4 py-2 rounded-0" value="SIGN IN">
+                    </div>
+                    <div class="my-2 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                    <label class="form-check-label text-muted">
+                      <input type="checkbox" class="form-check-input">
+                      Keep me signed in
+                    </label>
+                  </div>
+                  <a href="{% url 'reset' %}" class="auth-link text-black">Forgot password?</a>
+                </div>
+                <div class="mb-2">
+                </div>
+
+              </form>
+                {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    $('#success-alert').fadeTo(1000, 500).slideUp(500, function(){
+    $('#success-alert').slideUp(500);});
+
+    $("#danger-alert").fadeTo(1000, 500).slideUp(500, function(){
+    $("#danger-alert").slideUp(500);});
+</script>
+
+    {% block footer %}
+        {% endblock %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+     <div style="margin-top: 120px;" class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="#">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">About Us</span>
+      </div>
+    </div>
+
+    <div class="container pt-5 mb-5">
+            <div class="row">
+              <div class="col-lg-4">
+                <h2 class="section-title-underline">
+                  <span>Academics History</span>
+                </h2>
+              </div>
+              <div class="col-lg-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, iure dolorum! Nam veniam tempore tenetur aliquam architecto, hic alias quia quisquam, obcaecati laborum dolores. Ex libero cumque veritatis numquam placeat?</p>
+              </div>
+              <div class="col-lg-4">
+                <p>Nam veniam tempore tenetur aliquam
+                architecto, hic alias quia quisquam, obcaecati laborum dolores. Ex libero cumque veritatis numquam placeat?</p>
+              </div>
+            </div>
+          </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mb-lg-0 mb-4">
+                    <img src="{{ principal.image.url }}" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-lg-5 ml-auto align-self-center">
+                    <h2 class="section-title-underline mb-5">
+                        <span>Principal' Message</span>
+                    </h2>
+                    <p>{{ principal.message }}</p>
+
+
+                   <h2 class="mb-lg-2">
+                        <span>Mr.{{ principal.name }}</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                    <div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0">
+                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="col-lg-5 mr-auto align-self-center order-2 order-lg-1">
+                        <h2 class="section-title-underline mb-5">
+                            <span>Vice Principal</span>
+                        </h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At itaque dolore libero corrupti! Itaque, delectus?</p>
+                        <p>Modi sit dolor repellat esse! Sed necessitatibus itaque libero odit placeat nesciunt, voluptatum totam facere.</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

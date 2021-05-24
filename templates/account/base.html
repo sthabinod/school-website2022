@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <!--	External Files-->
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>K.E.B.S | Koshi Higher Secondary School</title>
+    <!-- plugins:style.css -->
+    <link rel="stylesheet" href="{% static 'vendors/feather/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/ti-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- Plugin style.css for this page -->
+    <link rel="stylesheet" href="{% static 'vendors/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/ti-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'js/select.dataTables.min.css' %}">
+    <!-- End plugin style.css for this page -->
+    <!-- inject:style.css -->
+    <link rel="stylesheet" href="{% static 'css/animation.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<style>
+    .active{
+
+    box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+    padding:20px;
+}
+</style>
+
+<body>
+  <div class="container-scroller">
+    <!-- navbar -->
+  {% with url_name=request.resolver_match.url_name %}
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div style="background-color:#111827;" class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center nav-back">
+        <a style="color: white;" class="navbar-brand brand-logo mr-5" href="{% url 'landing_page' %}"><img src="{% static 'Images/1.png' %}" class="mr-2" alt="logo"/></a>
+        <a style="color: white;" class="navbar-brand brand-logo-mini" href="{% url 'landing_page' %}"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/The_Hill_School_Family_Boarding_School_logo.png/800px-The_Hill_School_Family_Boarding_School_logo.png" alt="logo"/></a>
+      </div>
+
+      <div style=" background-color:#111827;" class="navbar-menu-wrapper d-flex justify-content-end nav-back">
+        <ul style="margin-left: -150px;" class="navbar-nav navbar-nav-left mr-lg-2">
+          <li class="nav__list {% if url_name == 'landing_page' %}active{% endif %}"><i class="fa fa-graduation-cap fa-lg mr-2 "></i><a style="color: white;" href="{% url 'landing_page' %}" class="nav__link nav__link">Home</a> </li>
+          <li class="nav__list {% if url_name == 'events' %}active{% endif %}"><i class="fa fa-calendar-day mr-2 fa-lg" aria-hidden="true"></i><a style="color: white;" href="{% url 'events' %}" class="nav__link">Events</a></li>
+          <li class="nav__list {% if url_name == 'gallery' %}active{% endif %}"><i class="fas fa-image mr-2 fa-lg"></i> <a style="color: white;" href="{% url 'gallery' %}" class="nav__link">Gallery</a></li>
+           {% if user.is_authenticated %}
+
+                    <li class="nav__list {% if url_name == 'view_result' %}active{% endif %}"><i class="fa fa-list-alt mr-2 fa-lg" aria-hidden="true"></i><a style="color: white;" href="{% url 'view_result' %}" class="nav__link">View result</a></li>
+
+                    <li class="nav__list {% if url_name == 'teacher_dashboard' %}active{% endif %}"><i class="fa fa-tachometer-alt mr-2 fa-lg" aria-hidden="true"></i><a style="color: white;" href="{% url 'teacher_dashboard' %}" class="nav__link">Dashboard</a></li>
+
+
+          {% endif %}
+        </ul>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="icon-bell mx-0"></i>
+              <span class="count"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="ti-info-alt mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="ti-settings mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Settings</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="ti-user mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                {% if user.teacheruser %}
+                    {% if user.teacheruser.image.url is not null %}
+                    <img src="" alt="{{ user.first_name }}"/>
+                        {% else %}
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="">
+                        {% endif %}
+                {% elif user.studentuser %}
+                        <img src="" alt="{{ user.first_name }}"/>
+                    {% else %}
+
+                {% endif %}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+               <a href="{% url 'change-pw' %}" class="dropdown-item">
+                <i class="fa fa-key text-success" aria-hidden="true"></i>
+                Change Password
+              </a>
+              <a href="{% url 'profile' %}" class="dropdown-item">
+                <i class="ti-settings text-success"></i>
+                Settings
+              </a>
+              <a href="{% url 'logout' %}" class="dropdown-item">
+                <i class="ti-power-off text-danger"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+       {% else %}
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link" href="{% url 'login' %}"  id="">
+                    <i class="fas fa-sign"></i>Login
+                    </a>
+                    <a style="margin-left: 20px;" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="register">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>Register
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="register">
+                        <a href="{% url 'user_teacher' %}" class="dropdown-item">
+                            <i style="color:limegreen;" class="fas fa-chalkboard-teacher text-success"></i>
+                            Sign up as Teacher
+                        </a>
+                        <a href="{% url 'user_student' %}" class="dropdown-item">
+                            <i class="fas fa-user-graduate text-success"></i>Sign up as Student
+                        </a>
+                    </div>
+                </li>
+            </ul>
+       {% endif %}
+    </nav>
+  {% endwith %}
+
+    {% block content %}
+
+{#        Content Goes here!#}
+
+    {% endblock %}
+  </div>
+
+  <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{% static 'endors/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'vendors/datatables.net/jquery.dataTables.js' %}"></script>
+  <script src="{% static 'vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
+  <script src="{% static 'js/dataTables.select.min.js' %}"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{% static 'js/off-canvas.js' %}"></script>
+  <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'js/template.js' %}"></script>
+  <script src="{% static 'js/settings.js' %}"></script>
+  <script src="{% static 'js/todolist.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'js/dashboard.js' %}"></script>
+  <script src="{% static 'js/Chart.roundedBarCharts.js' %}"></script>
+  <!-- End custom js for this page-->
+  <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v3.5.min.css" rel="stylesheet" type="text/css"/>
+
+</body>
+
+</html>
+

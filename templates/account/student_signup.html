@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %} {% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/register.css' %}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+<div class="container-scroller" style="margin-top: 140px;margin-bottom: 100px;">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;background-color: white;" class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                        <div class="brand-logo">
+                            {% for message in messages %} {% if message.tags == 'error' %}
+                            <p class="alert alert-success " id="danger-alert">{{ message }}</p>
+                            {% else %}
+                            <p class="alert alert-success" id="danger-alert">{{ message }}</p>
+                            {% endif %} {% endfor %}
+                        </div>
+                        <h4>Signup as student!</h4>
+                        <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                        <form method="POST" class="pt-3" action="{% url 'user_student' %}">
+                            {% csrf_token %}
+
+
+                            <div class="form-group">
+
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.first_name }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.last_name }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password1 }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password2 }}
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="student_identity" type="text">
+                            </div>
+                            <div class="form-group">
+                                <select name="classes" class="form-control">
+                        {% for class in classes %}
+                        <option value="{{ class.class_name }}">{{ class.class_name }}</option>
+                        {% endfor %}
+                    </select>
+                            </div>
+                            <div class="mt-3">
+                                <input style="height: 55px;" value="SIGN UP" type="submit" class="small btn btn-primary px-4 py-2 rounded-0">
+                            </div>
+                            <div class="text-center mt-4 font-weight-light">
+                                Already have an account? <a href="{% url 'login' %}" class="text-primary">Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#danger-alert").fadeTo(2000, 500).slideUp(500, function() {
+        $("#success-alert").slideUp(500);
+    });
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder = 'Username..';
+    form_fields[2].placeholder = 'Email..';
+    form_fields[3].placeholder = 'First name';
+    form_fields[4].placeholder = 'Lastname';
+    form_fields[5].placeholder = 'Enter password...';
+    form_fields[6].placeholder = 'Re-enter Password...';
+    form_fields[7].placeholder = 'Student Identification...';
+
+    for (var field in form_fields) {
+        form_fields[field].className += ' form-control'
+    }
+</script>
+{% block footer %} {% endblock %} {% endblock %}

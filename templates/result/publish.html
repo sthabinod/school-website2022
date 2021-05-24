@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="margin-top: 200px;" class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    {% if exams %}
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Exam Term</th>
+                            <th scope="col">Exam Year</th>
+                            <th scope="col">Publish Status</th>
+                            <th scope="col">Publish </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for exam in exams %}
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{ exam.exam_term }}</td>
+                        <td>{{ exam.exam_year }}</td>
+                        {% if exam.is_publish%}
+                            <td class="fa fa-check text-center"></td>
+                        {% elif exam.is_publish is False %}
+                            <td class="fa fa-times text-danger text-center"></td>
+                        {% endif %}
+
+                        <td><a href="{% url 'publish' exam.id %}"><span class="fa fa-arrow-circle-left text-primary fa-lg">&nbsp;&nbsp;&nbsp;Publish</span></a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                        <p class="lead">No exams to publish result!</p>
+                    {% endif %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

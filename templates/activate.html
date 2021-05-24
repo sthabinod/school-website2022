@@ -1,0 +1,5 @@
+
+    You are almost there, {{ user.first_name }} {{ user.last_name }}!
+
+    Click link below!
+    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}

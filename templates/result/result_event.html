@@ -1,0 +1,31 @@
+{% extends 'result/dashboard.html' %}
+
+{% block board %}
+
+     <!-- partial -->
+      <div style="float:right;margin-top: -600px;" class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+              {% for event in events %}
+            <div class="col-lg-4 grid-margin stretch-card">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ event.featured_image.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">{{ event.description }}</p>
+                        <p class="card-text text-success"> <b style="color:black;"> Start date:</b>
+                            {% if event.featured %}
+                            <span class="fa fa-star text-warning"></span>
+                            {% endif %}
+                            {{ event.start_date }} </p>
+                        <p class="card-text text-danger"> <b style="color:black;"> End date:</b> {{ event.end_date }} </p>
+                    </div>
+                </div>
+          </div>
+              {% endfor %}
+
+
+          </div>
+        </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'result/dashboard.html' %}
+
+{% block board %}
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<div style="float:right;margin-top: -700px;" class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div style="margin-top: 70px;" class="col-md-10 grid-margin">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                                <p class="alert alert-danger " id="danger-alert">{{ message }}</p>
+                            {% else %}
+                                <p class="alert alert-success" id="success-alert">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                         <p style="margin-left: 20px;" class="text-success"> <b>Note:</b> Tick the box to indicate as present!</p>
+                            <form id="form" action="{% url 'add_attendance' %}" method="post">
+                            {% csrf_token %}
+                                 <input type="hidden" name = "class" id="class" value="{{class}}"/>
+                        <input type="hidden" name="day" id="day" value="{{day}}"/>
+                        <input type="hidden" name="date_time" id="date_time" value="{{date_time}}"/>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SN</th>
+                                    <th  scope="col">Student Name</th>
+                                    <th scope="col">Present</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                            {% for name in students %}
+                            <tr style="background: none;color: #000;">
+                                <td>{{ forloop.counter }}</td>
+
+                                    <input name="names" id="names" type="hidden"  value="{{name.student_identity}}"/>
+
+                                <td><a style="color:black;text-decoration: none;"  href="#"><p style="font-size: 16px;" class="" >{{name.user.first_name}} {{name.user.last_name}}</p></a></td>
+                                <td>
+
+{#  <input type="checkbox" name="attend"{% if checked %} value="present"  {% elif not checked %} value="absent" {% endif %}  >#}
+                                       <select class="form-control" id="is_present" name="is_present">
+
+                                        <option class="text-success" value="1">Present </option>
+                                        <option class="text-danger" value="0">Absent </option>
+
+                                         </select>
+
+
+                                </td>
+                             <td>
+
+{#  <input type="checkbox" value="absent" name="attend_two" >#}
+
+
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                        <button type="submit" style="width: 30%;float: right;margin-top: 20px;margin-right: 20px;" class="btn btn-success">Proceed </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

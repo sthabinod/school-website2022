@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+      <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="index.html">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">News</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-9 mb-4">
+                    <p class="mb-5">
+                        <img src="{{ news.image.url }}" alt="Image" class="img-fluid">
+                    </p>
+
+                    <h4 style="text-decoration: underline;">{{ news.title }}</h4>
+                    <small><h7 class=" text-success">Category - {{ news.category }}</h7></small>
+                    <br>
+                    <p>{{ news.description }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

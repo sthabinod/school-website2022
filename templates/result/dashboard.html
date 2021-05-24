@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>KEBS Teacher Dashboard</title>
+  <!-- plugins:css -->
+
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+
+  <link rel="stylesheet" href="{% static 'vendors_d/ti-icons/css/themify-icons.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'css_d/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+    <style>
+        .active-stat{
+            color: #5cb85c;
+        }
+    </style>
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="{% url 'landing-page' %}"><h3>K.E.B.S</h3></a>
+        <a class="navbar-brand brand-logo-mini" href="{% url 'landing-page' %}"><h3>K.E.B.S</h3></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+
+            </div>
+          </li>
+        <div class="dropdown">
+  <span class="" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <a style="float: right;" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {% if request.user.teacheruser %}
+                    <img style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px ;border: 3px solid #5cb85c; " src="{{ request.user.teacheruser.image.url }}" width="40" height="40" class="rounded-circle">
+                   {% elif request.user.studentuser %}
+                                       <img style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 3px solid #5cb85c;" src="{{ request.user.studentuser.image.url }}" width="40" height="40" class="rounded-circle">
+
+                   {% endif %}
+        </a>
+  </span>
+  <ul style="margin-top:50px;" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+       {% if user.teacheruser %}
+         <li> <a class="dropdown-item" href="#">Dashboard</a></li>
+            {% endif %}
+          <li><a class="dropdown-item" href="{% url 'profile' %}">View Profile</a></li>
+           <li><a class="dropdown-item" href="{% url 'change-pw' %}">Change Password</a></li>
+          <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+  </ul>
+</div>
+
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+
+      <!-- partial:partials/_sidebar.html -->
+      <nav style="margin-top:70px;" class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link " href="{% url 'dashboard' %}">
+              <i class="fa fa-dashboard fa-lg {% if url_name == 'dashboard' %}text-primary{% endif %}"> &nbsp;&nbsp;</i>
+              <span class="menu-title active-stat">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'result' %}">
+              <i class="fa fa-plus-circle fa-lg {% if url_name == 'result' and url_name == 'add_result' %}text-primary{% endif %}">&nbsp;&nbsp;</i>
+              <span class="menu-title">Add Result</span>
+
+            </a>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'result_report' %}">
+              <i class="fa fa-file fa-lg {% if url_name == 'result_report' %}text-primary{% endif %}">&nbsp;&nbsp;</i>
+              <span class="menu-title">Result Report</span>
+
+            </a>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'result_event' %}">
+              <i class="fa fa-calendar fa-lg {% if url_name == 'result_event' %}text-primary{% endif %}">&nbsp;&nbsp;</i>
+              <span class="menu-title">My Events</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'attendance' %}">
+              <i class="fa fa-calendar fa-lg {% if url_name == 'attendance' %}text-primary{% endif %}">&nbsp;&nbsp;</i>
+              <span class="menu-title">Add Attendance</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+{% block board %}
+
+  {% endblock %}
+
+  <script src="{% static 'vendors_d/chart.js/Chart.min.js' %}"></script>
+
+  <script src="{% static 'vendors_d/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
+  <script src="{% static 'js_d/dataTables.select.min.js' %}"></script>
+
+
+
+</body>
+
+</html>
+

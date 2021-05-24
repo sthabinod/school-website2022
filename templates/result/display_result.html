@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+    .bg-success {
+    background-color: #2dce89 !important;
+}
+
+    .badge {
+        border: 1px solid #000;
+    }
+
+.badge {
+    text-transform: uppercase;
+}
+
+.badge a {
+    color: #fff;
+}
+
+.btn .badge:not(:first-child) {
+    margin-left: .5rem;
+}
+
+.btn .badge:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.badge-dot {
+    font-size: .875rem;
+    font-weight: 400;
+    padding-right: 0;
+    padding-left: 0;
+    text-transform: none;
+    background: transparent;
+}
+
+.badge-dot strong {
+    color: #32325d;
+}
+
+.badge-dot i {
+    display: inline-block;
+    width: .375rem;
+    height: .375rem;
+    margin-right: .375rem;
+    vertical-align: middle;
+    border-radius: 50%;
+    border:none;
+}
+.mr-4 {
+    margin-right: 1.5rem !important;
+}
+</style>
+
+ <div style="margin-top: 200px;" class="main-content">
+    <div class="container mt-7">
+
+      <h2 class="mb-5">
+
+{#      View result#}
+      {% if result %}
+          {% if percentage >= 40 and percentage <= 100 %}
+              Congratulation!
+          {% elif percentage < 40 and percentage >= 0 %}
+              Work Hard!
+          {% endif %}
+            {{student.user.first_name}} {{student.user.last_name}} </h2><div class="row">
+
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+                <h3 class="mb-0">Report card :  {{ exams.exam_term }} | {{ exams.exam_year }}</h3>
+            </div>
+            <div class="table-responsive">
+
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                   <th></th>
+                    <th scope="col">Sn</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Exam Score</th>
+                    <th scope="col">Test Score</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+{#                Display all result#}
+                {% for r in result %}
+                  <tr>
+                        <th scope="row">
+                            <td>{{ forloop.counter }}</td>
+                        </th>
+                        <th scope="row">
+                            <div class="media align-items-center">
+
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">{{r.subject_number}}</span>
+                                </div>
+                            </div>
+                        </th>
+
+                        <td>
+                            <span class="badge-dot mr-4">
+                              {% with mark=r.exam_score %}
+                                  {% if mark > 60 %}
+                                    <i  class="bg-success"></i> {{r.exam_score}}
+                                  {% elif mark > 35 %}
+                                    <i class="bg-warning"></i> {{r.exam_score}}
+                                  {% elif mark < 35 %}
+                                    <i class="bg-danger"></i> {{r.exam_score}}
+                                  {% endif %}
+                             {% endwith %}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class=" badge-dot mr-4">
+                            {% with mark=r.test_score %}
+                                {% if mark >= 8 %}
+                                    <i class="bg-success"></i> {{r.test_score}}
+                                {% elif mark >= 5 %}
+                                    <i class="bg-warning"></i> {{r.test_score}}
+                                {% elif mark  < 5 %}
+                                    <i class="bg-danger"></i> {{r.test_score}}
+                                {% endif %}
+                             {% endwith %}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class=" badge-dot mr-4">
+                           {% with t=r.test_score e=r.exam_score %}
+                                {{ e | add:t }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                            <div>
+                            <div class="progress">
+                              {% if e|add:t >= 70 and e|add:t <= 100  %}
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100" style="width: {{ e | add:t }}%">
+                            </div>
+                                {% elif e|add:t < 70 and e|add:t >= 40 %}
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100" style="width: {{ e | add:t }}%">
+                            </div>
+                                {% elif e|add:t < 40 and e|add:t >= 0 %}
+                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100" style="width: {{ e | add:t }}%">
+                            </div>
+                              {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="#"></a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                    {% endwith %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <div class="container" style="margin-top:30px;margin-bottom: 100px;">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="card" >
+
+                        <div class="card-body">
+                            <h5 class="">Marks</h5>
+                            <table class="table">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td >Grand Total</td>
+                                        <td>{{ grand_total }}</td>
+                                        <td>{% if grand_total >= 40 and grand_total <= 100 %}Good {% elif grand_total < 40 %}Bad{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>To obtained</td>
+                                        <td>{{ total_to_get }}</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">3</th>
+                                        <td>Percentage</td>
+                                        <td>{{ percentage }}</td>
+                                        <td>{% if percentage >= 40 and percentage <= 100 %}Good {% elif percentage < 40 %}Bad{% endif %}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Grade</td>
+                                        <td>{{ grade }}</td>
+                                        <td>{% if percentage >= 40 and percentage <= 100 %}Good {% elif percentage < 40 %}Bad{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>GPA</td>
+                                        <td>{{ grade_points|truncatechars:5 }}</td>
+                                        <td>{% if percentage >= 40 and percentage <= 100 %}Good {% elif percentage < 40 %}Bad{% endif %}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card" style="width:22rem;" >
+                        <div class="card-body">
+                            <h5 class="card-title">Remarks</h5>
+                            <table class="table" >
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Full Name</td>
+                                        <td>{{ student.user.first_name }} {{ student.user.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class</td>
+                                        <td> {{ student.classes }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class Teacher</td>
+                                        <td>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</td>
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+    {% else %}
+          <p> No result for such information</p>
+    {% endif %}
+{% block footer %}
+{% endblock %}
+{% endblock %}
